@@ -11,10 +11,10 @@ module.exports = {
         if (err) {
           return res.json({
             success: 0,
-            message: "Invalid Token..."
+            message: "Access Denied! Unauthorized User"
           });
         } else {
-          req.decoded = decoded;
+          req.user = decoded.data;
           next();
         }
       });
