@@ -1,4 +1,4 @@
-var { createUser, loginUser } = require("./../services/user.service")
+var { createUser, loginUser, getUserOne } = require("./../services/user.service")
 var { generateAccessToken, generateRefreshToken } = require("./../utilities/common.helper")
 
 var login = (req, res) => {
@@ -12,8 +12,8 @@ var login = (req, res) => {
                 _id: user._id
             }
         })
-    }).catch(err => {
-        return res.send(err)
+    }).catch(error => {
+        return res.send(error)
     })
 }
 
@@ -21,15 +21,19 @@ var login = (req, res) => {
 var register = (req, res) => {
     createUser(req.body).then(user => {
         return res.send(user)
-    }).catch(err => {
-        return res.send(err)
+    }).catch(error => {
+        return res.send(error)
     })
 }
 
 
 var forgetPassword = (req, res) => {
-    return res.send({ status : true})
-    
+    getUserOne({ userEmail : req.body.userEmail}).then(outPut => {
+        if (outPut) return res.send({ status : true, msg : 'Forget password link has been send to your email.'})
+        else return res.send({ status : true, msg : 'This user not found.'})
+    }).catch(error=>{
+        return res.send(error)
+    })
 }
 
 

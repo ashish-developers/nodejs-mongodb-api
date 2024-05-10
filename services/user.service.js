@@ -9,8 +9,8 @@ var loginUser = (user) => {
             if (!userRow) return reject({ msg : "Invalid User"});
             if (!(userRow.userPassword == md5(user.userPassword))) return reject({ msg : "Invalid Password"});
                 return resolve(userRow)
-        }).catch(err => {
-            return reject(err)
+        }).catch(error => {
+            return reject(error)
         })
     })
 }
@@ -23,8 +23,8 @@ var createUser = (userObj) => {
         newUser.userPassword = md5(userObj.userPassword);
         newUser.save().then(userRow => {
             return resolve(userRow)
-        }).catch(err => {
-            return reject(err)
+        }).catch(error => {
+            return reject(error)
         })
     })
 }
@@ -33,7 +33,18 @@ var camparePassword = (password, dbPassword) => {
     return (assword == dbPassword ? true : false)
 }
 
+var getUserOne = (whereClause) => {
+    return new Promise((resolve, reject) => {
+        User.findOne(whereClause).then(user => {
+            return resolve(user);
+        }).catch(error => {
+            return reject(error);
+        })
+    })
+}
+
 module.exports = {
     loginUser,
-    createUser
+    createUser,
+    getUserOne
 }

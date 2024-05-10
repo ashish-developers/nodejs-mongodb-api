@@ -8,6 +8,6 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 var authRouter = require("./routes/auth.router")
 
-app.use("/api/auth/", authRouter)
+app.use("/api", authRouter)
 
 app.listen(10000)
