@@ -14,6 +14,7 @@ var loginUser = (user) => {
         })
     })
 }
+
 var createUser = (userObj) => {
     return new Promise((resolve, reject) => {
         newUser.firstName = userObj.firstName;
