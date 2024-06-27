@@ -4,10 +4,10 @@ var newUser = new User();
 
 var loginUser = (user) => {
     return new Promise((resolve, reject) => {
-        User.findOne({ isActive: 1, $or : [{ userEmail : user.userEmail },{ userName: user.userEmail }]})
+        User.findOne({ isActive: 1, $or : [{ userEmail : user.email },{ userEmail: user.email }]})
         .then(userRow => {
-            if (!userRow) return reject({ msg : "Invalid User"});
-            if (!(userRow.userPassword == md5(user.userPassword))) return reject({ msg : "Invalid Password"});
+            if (!userRow) return reject({ msg : "Invalid user credential"});
+            if (!(userRow.userPassword == md5(user.password))) return reject({ msg : "Invalid user password."});
                 return resolve(userRow)
         }).catch(error => {
             return reject(error)

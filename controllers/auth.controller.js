@@ -13,7 +13,7 @@ var login = (req, res) => {
             }
         })
     }).catch(error => {
-        return res.send(error)
+        return res.status(402).send(error)
     })
 }
 

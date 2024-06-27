@@ -10,7 +10,8 @@ var DirectorySchema = new Schema({
     },
     dirType: {
         type: String,
-        required: false
+        required: false,
+        default: null
     },
     dirStatus: String,
     dirOtherStatus: String,

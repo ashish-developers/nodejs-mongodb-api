@@ -10,8 +10,13 @@ router.post('/auth/user/reset-password', resetPassword)
 
 //router.get('/user/dashboard', onBoard)
 router.get('/video', addNewFile)
+router.get('/user/files/create', addNewFile)
 router.post('/user/files/upload', uploadFiles)
 router.get('/user/files/process', processVideo)
+
+router.get('/user/files/bin', addNewFile)
+router.post('/user/files/shared', uploadFiles)
+router.get('/user/files/important', processVideo)
 
 
 module.exports = router
