@@ -1,8 +1,9 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
+const { ObjectId } = require('mongodb');
 mongoose.connect('mongodb+srv://admin:6AGtwpOlgkJlY6m2@cluster0.sp5ol.mongodb.net/test');
-var Schema = mongoose.Schema;
+const Schema = mongoose.Schema;
 
-var UserSchema = new Schema({
+const UserSchema = new Schema({
 	firstName: String,
 	lastName: String,
 	userName: {
@@ -16,6 +17,10 @@ var UserSchema = new Schema({
         required: true
     },
     userPassword:String,
+    subscriptionId: ObjectId,
+    subscriptionEndDate : Date,
+    themeMode : String,
+    lastLogin : Date,
     isActive:{
         type: Number,
         default: 1

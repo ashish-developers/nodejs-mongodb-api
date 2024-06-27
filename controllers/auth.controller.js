@@ -4,8 +4,8 @@ var { generateAccessToken, generateRefreshToken } = require("./../utilities/comm
 var login = (req, res) => {
     loginUser(req.body).then(user => {
         return res.send({
-            acceessToken: generateAccessToken({ email: req.body.userEmail, _id: user._id}),
-            refreshToken: generateRefreshToken({ email: req.body.userEmail, _id: user._id}),
+            acceessToken: generateAccessToken({ email: req.body.email, _id: user._id}),
+            refreshToken: generateRefreshToken({ email: req.body.email, _id: user._id}),
             tokenType: 'Bearer',
             userInfo: {
                 userEmail: user.userEmail,

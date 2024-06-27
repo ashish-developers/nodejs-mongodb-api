@@ -1,20 +1,25 @@
-var express = require("express");
-var bodyParser = require("body-parser");
-var redis = require("redis");
-var app = express();
+const express = require("express");
+const http = require('http');
+const bodyParser = require("body-parser");
+const cors = require('cors');
+const { initializeSocket } = require('./utilities/socket.setting');
+
+const app = express();
+const server = http.createServer(app);
+
+const corsOpts = {
+    origin: 'http://localhost:3000',
+    methods: ['GET','POST',],
+    allowedHeaders: ['Content-Type'],
+    credentials: true
+};
+  
+app.use(cors(corsOpts));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
+initializeSocket(server);
 
-var redisClient;
+const authRouter = require("./routes/auth.router");
+app.use("/api", authRouter);
 
-(async () => {
-  redisClient = redis.createClient();
-  redisClient.on("error", (error) => console.error(`Error : ${error}`));
-  await redisClient.connect();
-})();
-
-var authRouter = require("./routes/auth.router")
-
-app.use("/api", authRouter)
-
-app.listen(10000)
+server.listen(10000);

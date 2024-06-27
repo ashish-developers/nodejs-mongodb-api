@@ -16,6 +16,7 @@ var verifyJwt = (tokenValue) => {
 
 module.exports = {
     generateAccessToken,
-    generateRefreshToken
+    generateRefreshToken,
+    verifyJwt
 }
 
