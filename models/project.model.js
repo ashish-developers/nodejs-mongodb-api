@@ -3,32 +3,35 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb+srv://admin:6AGtwpOlgkJlY6m2@cluster0.sp5ol.mongodb.net/test');
 var Schema = mongoose.Schema;
 
-var DirectorySchema = new Schema({
+var ProjectSchema = new Schema({
 	dirName: {
         type: String,
-        required: false
+        default:"Unknown",
+        required: true
     },
     dirType: {
-        type: String,
-        required: false,
-        default: null
+        type: String
     },
     dirStatus: String,
     dirOtherStatus: String,
     dirOwner: {
         type: ObjectId,
-        required: false
+        required: true
     },
-    dirCreatedBy: String,
-    dirLastUpdatedBy: String,
+    dirCreatedBy: {
+        type: ObjectId,
+        required: true
+    },
+    dirLastUpdatedBy: ObjectId,
 	dirSharedWith: Array,
-    dirPath: String,
-    dirPassword:String,
+    dirParent: String,
+    dirPassword: String,
     isActive:{
         type: Number,
+        required: true,
         default: 1
     }
 },
 { timestamps: true, versionKey: false });
 
-module.exports = mongoose.model('Directory', DirectorySchema);
+module.exports = mongoose.model('Project', ProjectSchema);
