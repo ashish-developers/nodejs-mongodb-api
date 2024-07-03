@@ -1,18 +1,23 @@
 var md5 = require('md5');
 var File = require("./../models/file.model")
-var DirModel = require("./../models/file.model");
-const { Dir } = require('fs');
+var Project = require("./../models/project.model");
+const { Promise } = require('mongoose');
+const { resolve } = require('path');
+// const { Dir } = require('fs');
 
 var newFile = new File();
-var newDir = new Dir();
+var newDir = new Project();
 
-var makeDir = async () => {
-    newDir.dirName = "Apple";
-    newDir.save(newDir).then(userRow => {
-        return (userRow)
-    }).catch(error => {
-        return (error)
-    })
+var makeDir = async (dirData) => {
+
+        dirParam = new Project();
+        dirParam.dirName= 'Unknown1'
+        dirParam.dirType= null
+        dirParam.dirSharedWith= []
+        dirParam.dirPassword= null
+        dirParam.isActive= 0
+        return await dirParam.save();
+    
 }
 
 // const createFileOne = (fileData) => {

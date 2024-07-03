@@ -14,8 +14,14 @@ var FileSchema = new Schema({
         required: true
     },
     fileExt: String,
-    fileStatus: String,
-    fileOtherStatus: String,
+    fileStatus: {
+        type: Number,
+        required: true
+    },
+    fileOtherStatus: {
+        required: true,
+        type: ObjectId
+    },
 	fileRevisions: {
         type: Array,
         required: true,
@@ -24,11 +30,17 @@ var FileSchema = new Schema({
         type: ObjectId,
         required: true
     },
-    fileCreatedBy: String,
-    fileLastUpdatedBy: String,
+    fileCreatedBy: {
+        type: ObjectId,
+        required: true
+    },
+    fileLastUpdatedBy: {
+        type: ObjectId
+    },
 	fileSharedWith: Array,
     filePath: String,
     filePassword:String,
+    fileValidity:Date,
     isActive:{
         type: Number,
         default: 1
