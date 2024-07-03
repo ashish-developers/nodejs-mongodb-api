@@ -1,5 +1,8 @@
 const multer = require('multer');
 const Busboy = require('busboy');
+const THREE = require('three');
+// /const {GLTFLoader} = require('three-gltf-loader');
+var mime = require('mime-types');
 const ffmpeg = require('fluent-ffmpeg')
 ffmpeg.setFfmpegPath('C:\\ffmpeg\\bin\\ffmpeg.exe');
 const fs = require('fs');
@@ -9,7 +12,22 @@ const io = getSocketInstance();
 
 
 const addNewFile = (req, res) => {
-  const videoPath = path.join('public/tmp', '04_H265.mp4');
+
+  var mime = require('mime-types');
+  
+  console.log(mime.lookup(path.join(__dirname , 'Astronaut.glb')))
+  const filePath = path.join( 'C:\\Users\\clavi\\OneDrive\\Desktop\\nodejs-workspace\\mongo\\public\\tmp', 'Astronaut.glb');
+  console.log(filePath)
+  if (fs.existsSync(filePath)) {
+    console.log(1)
+    res.setHeader('Content-Type', 'model/gltf-binary');
+    res.setHeader('Content-Disposition', 'attachment; filename=file.glb');
+    res.sendFile(filePath)
+  } else {
+    res.status(404).send('File not found');
+  }
+  
+  return false
   fs.stat(videoPath, (err, stats) => {
     if (err) {
         console.error(err);
